@@ -20,6 +20,9 @@ export const App = () => {
   const updatePictures = async newSearch => {
 
     try {
+      if (search !== newSearch) {
+        setPage(() => 1);
+      }
       setIsLoading(() => true)
       const photos = await fetchPhotos(newSearch, page);
       const oldPictures = pictures;
@@ -27,7 +30,6 @@ export const App = () => {
         const newPictures = [...oldPictures, ...photos];
         if (search !== newSearch) {
           setPictures(() => photos);
-          setPage(() => 1);
         }
         if (search === newSearch) {
           setPictures(() => newPictures);
