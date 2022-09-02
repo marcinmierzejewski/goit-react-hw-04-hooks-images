@@ -91,27 +91,20 @@ export const App = () => {
         }
       });
     }
-  }, [isModalOpen])
-
-    
+  }, [isModalOpen])    
 
     return (
       <div>
         <SearchBar newSearch={changeSearchValue} />
         {error && <p>ERROR: Whoops O_o, something went wrong: {error.message}</p>}
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <ImageGallery
+         <ImageGallery
             pictures={pictures}
             openModalWindow={openModalWindow}
           />
-        )}
-        {pictures.length !== 0 ? (
+        {isLoading && <Loader/>}
+        {pictures.length !== 0 && 
           <Button text="Load more" func={loadMorePictures} />
-        ) : (
-          ''
-        )}
+        }
         {isModalOpen ? (
           <Modal modalImgLarge={modalImg} closeImg={closeModalWindow} />
         ) : (
