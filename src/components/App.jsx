@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { SearchBar } from './SearchBar/SearchBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
@@ -17,7 +17,7 @@ export const App = () => {
   const [modalImg, setModalImg] = useState(null);
   const [error, setError] = useState(null);
 
-  const updatePictures = async newSearch => {
+  const updatePictures = useCallback(async newSearch => {
 
     try {
       if (search !== newSearch) {
@@ -43,7 +43,7 @@ export const App = () => {
     } finally {
       setIsLoading(() => false)
     }
-  };
+  }, [page, pictures, search]);
 
   const resetArray = searchPicture => {
     setSearch(() => searchPicture);
@@ -65,7 +65,7 @@ export const App = () => {
       updatePictures(search);
       setNextSearch(search);
     }
-  }, [search, nextSearch]);
+  }, [search, nextSearch, updatePictures]);
 
   const openModalWindow = e => {
     const largeImg = e.target.dataset.source;
